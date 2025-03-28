@@ -20,4 +20,4 @@ mkdir -p /tmp/.X11-unix
 touch ${HOME}/.Xauthority
 export XDG_RUNTIME_DIR="/tmp/$(id -u)"
 
-docker compose --file ${COMPOSE_FILE_PATH} run --rm --user ${USER} ros ${@}
+docker compose --file ${COMPOSE_FILE_PATH} run --build --rm --user ${USER} ros ${@}
