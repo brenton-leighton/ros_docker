@@ -1,6 +1,11 @@
 services:
   ros:
-    image: ${COMPOSE_PROJECT_NAME}
+    build:
+      context: ../../
+      dockerfile: ./noetic/${COMPOSE_PROJECT_NAME}/Dockerfile
+      args:
+        USER_ID: ${USER_ID}
+        USER: ${USER}
     network_mode: host
     ipc: host
     stdin_open: true
@@ -19,5 +24,3 @@ services:
 #      - type: bind
 #        source: /path/to/host/catkin_ws
 #        target: ${HOME}/catkin_ws
-      - /var/run/dbus:/var/run/dbus
-      - /var/run/avahi-daemon/socket:/var/run/avahi-daemon/socket

@@ -1,17 +1,18 @@
 services:
   ros:
-    image: ${COMPOSE_PROJECT_NAME}
+    build:
+      context: ../../
+      dockerfile: ./humble/${COMPOSE_PROJECT_NAME}/Dockerfile
+      args:
+        USER_ID: ${USER_ID}
+        USER: ${USER}
     network_mode: host
     ipc: host
     stdin_open: true
     tty: true
-    runtime: nvidia
-    gpus: all
 
     # Environment variables are copied from host if they are set
     environment:
-      - DISPLAY
-      - XDG_RUNTIME_DIR
       - ROS_DOMAIN_ID
       - ROS_AUTOMATIC_DISCOVERY_RANGE
       - ROS_STATIC_PEERS
@@ -29,5 +30,5 @@ services:
 #      - type: bind
 #        source: /path/to/host/ros2_ws
 #        target: ${HOME}/ros2_ws
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - ${HOME}/.Xauthority:${HOME}/.Xauthority
+      - /var/run/dbus:/var/run/dbus
+      - /var/run/avahi-daemon/socket:/var/run/avahi-daemon/socket

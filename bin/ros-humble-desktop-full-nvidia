@@ -3,14 +3,18 @@
 # Assume the compose project name is the same as this script
 export COMPOSE_PROJECT_NAME=${0##*/}
 
+# Path to the compose file
 SCRIPT_DIR=$(dirname $(realpath "$0"))
-COMPOSE_FILE_PATH=${SCRIPT_DIR}/../compose/${COMPOSE_PROJECT_NAME}-compose.yaml
+COMPOSE_FILE_PATH=${SCRIPT_DIR}/../humble/${COMPOSE_PROJECT_NAME}/compose.yaml
 
 # Path to a home directory on the host
 export HOST_HOME_PATH=/var/tmp/${COMPOSE_PROJECT_NAME}_home
 
 # Ensure the home directory exists on the host
 mkdir -p ${HOST_HOME_PATH}/ros2_ws
+
+export USER_ID=$(id -u)
+export COMPOSE_BAKE=true
 
 mkdir -p /tmp/.X11-unix
 touch ${HOME}/.Xauthority

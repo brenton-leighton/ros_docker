@@ -1,10 +1,17 @@
 services:
   ros:
-    image: ${COMPOSE_PROJECT_NAME}
+    build:
+      context: ../../
+      dockerfile: ./noetic/${COMPOSE_PROJECT_NAME}/Dockerfile
+      args:
+        USER_ID: ${USER_ID}
+        USER: ${USER}
     network_mode: host
     ipc: host
     stdin_open: true
     tty: true
+    runtime: nvidia
+    gpus: all
 
     # Environment variables are copied from host if they are set
     environment:
@@ -19,3 +26,5 @@ services:
 #      - type: bind
 #        source: /path/to/host/catkin_ws
 #        target: ${HOME}/catkin_ws
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${HOME}/.Xauthority:${HOME}/.Xauthority

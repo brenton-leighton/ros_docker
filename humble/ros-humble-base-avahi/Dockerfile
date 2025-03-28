@@ -1,4 +1,6 @@
-FROM osrf/ros:humble-desktop-full
+# syntax = edrevo/dockerfile-plus
+
+FROM ros:humble-ros-base
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -6,7 +8,13 @@ RUN mkdir -p /workspace
 
 # Install packages
 RUN apt-get update && apt-get install -q -y --no-install-recommends \
+    avahi-daemon \
+    avahi-utils \
     git \
+    iproute2 \
+    iputils-ping \
+    iputils-tracepath \
+    libnss-mdns \
     ninja-build \
     ros-${ROS_DISTRO}-ament-clang-format \
     vim-tiny \
@@ -14,3 +22,6 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
 
 WORKDIR /workspace
 CMD ["bash"]
+
+INCLUDE+ ros.Dockerfile
+INCLUDE+ user.Dockerfile

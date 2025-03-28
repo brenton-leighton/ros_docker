@@ -1,3 +1,5 @@
+# syntax = edrevo/dockerfile-plus
+
 FROM ros:noetic-perception
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -13,3 +15,6 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
 
 WORKDIR /workspace
 CMD ["bash"]
+
+INCLUDE+ ros.Dockerfile
+INCLUDE+ user.Dockerfile

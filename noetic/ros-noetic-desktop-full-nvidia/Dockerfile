@@ -1,4 +1,6 @@
-FROM osrf/ros:humble-desktop-full
+# syntax = edrevo/dockerfile-plus
+
+FROM osrf/ros:noetic-desktop-full
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -8,7 +10,6 @@ RUN mkdir -p /workspace
 RUN apt-get update && apt-get install -q -y --no-install-recommends \
     git \
     ninja-build \
-    ros-${ROS_DISTRO}-ament-clang-format \
     vim-tiny \
     && rm -rf /var/lib/apt/lists/*
 
@@ -18,3 +19,6 @@ COPY 10_nvidia.json /usr/share/glvnd/egl_vendor.d/
 
 WORKDIR /workspace
 CMD ["bash"]
+
+INCLUDE+ ros.Dockerfile
+INCLUDE+ user.Dockerfile
