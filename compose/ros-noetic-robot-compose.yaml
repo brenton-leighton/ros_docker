@@ -1,0 +1,21 @@
+services:
+  ros:
+    image: ${COMPOSE_PROJECT_NAME}
+    network_mode: host
+    ipc: host
+    stdin_open: true
+    tty: true
+
+    # Environment variables are copied from host if they are set
+    environment:
+      - ROS_MASTER_URI
+      - ROS_HOSTNAME
+      - ROS_IP
+
+    volumes:
+      - type: bind
+        source: ${HOST_HOME_PATH}
+        target: ${HOME}
+#      - type: bind
+#        source: /path/to/host/catkin_ws
+#        target: ${HOME}/catkin_ws

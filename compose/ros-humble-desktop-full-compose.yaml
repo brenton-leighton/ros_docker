@@ -1,0 +1,31 @@
+services:
+  ros:
+    image: ${COMPOSE_PROJECT_NAME}
+    network_mode: host
+    ipc: host
+    stdin_open: true
+    tty: true
+
+    # Environment variables are copied from host if they are set
+    environment:
+      - DISPLAY
+      - XDG_RUNTIME_DIR
+      - ROS_DOMAIN_ID
+      - ROS_AUTOMATIC_DISCOVERY_RANGE
+      - ROS_STATIC_PEERS
+      - ROS_LOCALHOST_ONLY
+      - RMW_IMPLEMENTATION
+      - RCUTILS_CONSOLE_OUTPUT_FORMAT
+      - RCUTILS_COLORIZED_OUTPUT
+      - RCUTILS_LOGGING_USE_STDOUT
+      - RCUTILS_LOGGING_BUFFERED_STREAM
+
+    volumes:
+      - type: bind
+        source: ${HOST_HOME_PATH}
+        target: ${HOME}
+#      - type: bind
+#        source: /path/to/host/ros2_ws
+#        target: ${HOME}/ros2_ws
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${HOME}/.Xauthority:${HOME}/.Xauthority
