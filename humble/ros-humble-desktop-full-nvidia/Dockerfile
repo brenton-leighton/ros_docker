@@ -14,9 +14,7 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
     vim-tiny \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy 10_nvidia.json into the container
-# https://github.com/osrf/rocker/blob/main/src/rocker/templates/nvidia_snippet.Dockerfile.em
-COPY 10_nvidia.json /usr/share/glvnd/egl_vendor.d/
+INCLUDE+ nvidia.Dockerfile
 
 WORKDIR /workspace
 CMD ["bash"]
