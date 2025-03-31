@@ -1,20 +1,10 @@
 #!/usr/bin/env bash
 
+SCRIPT_DIR=$(dirname $(realpath "$0"))
+
 # Assume the compose project name is the same as this script
 export COMPOSE_PROJECT_NAME=${0##*/}
+export COMPOSE_FILE_PATH=${SCRIPT_DIR}/../noetic/${COMPOSE_PROJECT_NAME}/compose.yaml
 
-# Path to the compose file
-SCRIPT_DIR=$(dirname $(realpath "$0"))
-COMPOSE_FILE_PATH=${SCRIPT_DIR}/../noetic/${COMPOSE_PROJECT_NAME}/compose.yaml
-
-# Path to a home directory on the host
-TMPDIR=${TMPDIR-"/var/tmp/${USER}"}
-export HOST_HOME_PATH=${TMPDIR}/${COMPOSE_PROJECT_NAME}_home
-
-# Ensure the home directory exists on the host
-mkdir -p ${HOST_HOME_PATH}/catkin_ws
-
-export USER_ID=$(id -u)
-export COMPOSE_BAKE=true
-
-docker compose --file ${COMPOSE_FILE_PATH} run --build --rm --user ${USER} default ${@}
+# Call _ros_docker_compose_run
+${SCRIPT_DIR}/_ros_docker_compose_run ${@}

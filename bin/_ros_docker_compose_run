@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# Run a container with docker compose run
+
+# COMPOSE_PROJECT_NAME and COMPOSE_FILE_PATH must be set
+# The -b option will build the container before running (must be before the command to run)
+# Additional arguments to `docker compose run` can be passed with DOCKER_COMPOSE_RUN_ARGS
+# HOST_HOME_PATH (or TMPDIR) can optionally be set
+
+if [ -z "${COMPOSE_PROJECT_NAME}" ]; then
+  echo "COMPOSE_PROJECT_NAME must be set"
+  exit 1
+fi
+
+if [ -z "${COMPOSE_FILE_PATH}" ]; then
+  echo "COMPOSE_FILE_PATH must be set"
+  exit 1
+fi
+
+# Get the -b option to build
+while getopts b name
+do
+   case $name in
+   b) DOCKER_COMPOSE_RUN_ARGS=" --build ${DOCKER_COMPOSE_RUN_ARGS} ";;
+   esac
+done
+shift $(($OPTIND - 1))
+
+# Path to a home directory on the host
+if [ -z "${HOST_HOME_PATH}" ]; then
+  TMPDIR=${TMPDIR-"/var/tmp/${USER}"}
+  export HOST_HOME_PATH=${TMPDIR}/${COMPOSE_PROJECT_NAME}_home
+fi
+
+# Ensure the home directory exists on the host
+mkdir -p ${HOST_HOME_PATH}/ros2_ws
+
+export USER_ID=$(id -u)
+export COMPOSE_BAKE=true
+
+docker compose --file ${COMPOSE_FILE_PATH} run ${DOCKER_COMPOSE_RUN_ARGS} --rm --user ${USER} default ${@}
