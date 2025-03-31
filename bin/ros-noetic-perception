@@ -17,4 +17,4 @@ mkdir -p ${HOST_HOME_PATH}/ros2_ws
 export USER_ID=$(id -u)
 export COMPOSE_BAKE=true
 
-docker compose --file ${COMPOSE_FILE_PATH} run --build --rm --user ${USER} ros ${@}
+docker compose --file ${COMPOSE_FILE_PATH} run --build --rm --user ${USER} default ${@}

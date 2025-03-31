@@ -1,5 +1,5 @@
 services:
-  ros:
+  default:
     build:
       context: ../../
       dockerfile: ./humble/${COMPOSE_PROJECT_NAME}/Dockerfile

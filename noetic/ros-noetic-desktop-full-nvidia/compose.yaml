@@ -1,5 +1,5 @@
 services:
-  ros:
+  default:
     build:
       context: ../../
       dockerfile: ./noetic/${COMPOSE_PROJECT_NAME}/Dockerfile
