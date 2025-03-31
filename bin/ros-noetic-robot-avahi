@@ -8,7 +8,8 @@ SCRIPT_DIR=$(dirname $(realpath "$0"))
 COMPOSE_FILE_PATH=${SCRIPT_DIR}/../noetic/${COMPOSE_PROJECT_NAME}/compose.yaml
 
 # Path to a home directory on the host
-export HOST_HOME_PATH=/var/tmp/${COMPOSE_PROJECT_NAME}_home
+TMPDIR=${TMPDIR-"/var/tmp/${USER}"}
+export HOST_HOME_PATH=${TMPDIR}/${COMPOSE_PROJECT_NAME}_home
 
 # Ensure the home directory exists on the host
 mkdir -p ${HOST_HOME_PATH}/catkin_ws
