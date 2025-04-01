@@ -2,9 +2,8 @@
 
 SCRIPT_DIR=$(dirname $(realpath "$0"))
 
-# Assume the compose project name is the same as this script
-export COMPOSE_PROJECT_NAME=${0##*/}
-export COMPOSE_FILE_PATH=${SCRIPT_DIR}/../humble/${COMPOSE_PROJECT_NAME}/compose.yaml
+export COMPOSE_PROJECT_NAME=ros-noetic-desktop-full
+export COMPOSE_FILE_PATH=${SCRIPT_DIR}/../noetic/${COMPOSE_PROJECT_NAME}/compose.yaml
 
 # Additional things for GUI
 mkdir -p /tmp/.X11-unix
