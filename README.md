@@ -2,6 +2,14 @@
 
 Files for working with ROS in Docker
 
+The containers:
+- Run as the current user
+- Mount a host folder for the home directory to allow for persistent bash history, configuration files, etc.
+- Source ROS setup scripts from common locations (and for bash too)
+- Set up colcon command completion (for ROS 2)
+
+There are also containers for running GUI applications, NVIDIA TensorRT, or Avahi mDNS
+
 ## Usage
 
 - Install [Docker Engine](https://docs.docker.com/engine/install/) and also [set up the `docker` group](https://docs.docker.com/engine/install/linux-postinstall/)
