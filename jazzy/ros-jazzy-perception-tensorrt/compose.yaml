@@ -1,0 +1,34 @@
+services:
+  default:
+    build:
+      context: ../../
+      dockerfile: ./jazzy/${COMPOSE_PROJECT_NAME}/Dockerfile
+      args:
+        USER_ID: ${USER_ID}
+        USER: ${USER}
+    network_mode: host
+    ipc: host
+    stdin_open: true
+    tty: true
+    runtime: nvidia
+    gpus: all
+
+    # Environment variables are copied from host if they are set
+    environment:
+      - ROS_DOMAIN_ID
+      - ROS_AUTOMATIC_DISCOVERY_RANGE
+      - ROS_STATIC_PEERS
+      - ROS_LOCALHOST_ONLY
+      - RMW_IMPLEMENTATION
+      - RCUTILS_CONSOLE_OUTPUT_FORMAT
+      - RCUTILS_COLORIZED_OUTPUT
+      - RCUTILS_LOGGING_USE_STDOUT
+      - RCUTILS_LOGGING_BUFFERED_STREAM
+
+    volumes:
+      - type: bind
+        source: ${HOST_HOME_PATH}
+        target: ${HOME}
+#      - type: bind
+#        source: /path/to/host/ros2_ws
+#        target: ${HOME}/ros2_ws

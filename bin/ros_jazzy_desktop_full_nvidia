@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR=$(dirname $(realpath "$0"))
+
+export COMPOSE_PROJECT_NAME=ros-jazzy-desktop-full-nvidia
+export COMPOSE_FILE_PATH=${SCRIPT_DIR}/../jazzy/${COMPOSE_PROJECT_NAME}/compose.yaml
+
+# Additional things for GUI
+mkdir -p /tmp/.X11-unix
+touch ${HOME}/.Xauthority
+export XDG_RUNTIME_DIR="/tmp/$(id -u)"
+
+# Call _ros_docker_compose_run
+${SCRIPT_DIR}/_ros_docker_compose_run ${@}
