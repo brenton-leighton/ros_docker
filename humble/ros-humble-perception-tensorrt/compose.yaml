@@ -16,9 +16,8 @@ services:
     # Environment variables are copied from host if they are set
     environment:
       - ROS_DOMAIN_ID
-      - ROS_AUTOMATIC_DISCOVERY_RANGE
-      - ROS_STATIC_PEERS
       - ROS_LOCALHOST_ONLY
+      - ROS_STATIC_PEERS
       - RMW_IMPLEMENTATION
       - RCUTILS_CONSOLE_OUTPUT_FORMAT
       - RCUTILS_COLORIZED_OUTPUT
