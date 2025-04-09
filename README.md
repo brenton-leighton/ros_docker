@@ -27,7 +27,7 @@ There are also containers for running GUI applications, NVIDIA TensorRT, or Avah
 ./ros_humble_base -b
 ```
 
-## Advanced usage
+## Environment variables
 
 The compose files container a number of environment variables that will be set if they are set on the host:
 
@@ -46,14 +46,30 @@ The compose files container a number of environment variables that will be set i
   - `ROS_HOSTNAME`
   - `ROS_IP`
 
+## Making changes
+
+### `Dockerfile`
+
 Edit a container's [`Dockerfile`](https://docs.docker.com/reference/dockerfile/) to change how the image is built, e.g. to install additional packages
+
+### `compose.yaml`
 
 Edit a container's [`compose.yaml`](https://docs.docker.com/reference/compose-file/) file to change how the container is run, e.g.
 - [Mount volumes](https://docs.docker.com/reference/compose-file/services/#volumes) (like a `ros2_ws`/`catkin_ws` folder)
 - [Add devices](https://docs.docker.com/reference/compose-file/services/#devices)
+- [Set environment variables](https://docs.docker.com/reference/compose-file/services/#environment)
 
-Add the bin folder to your `PATH` environment variable to run the containers anywhere, e.g. by adding the following to `~/.bashrc`:
+## Tips
+
+- Add the bin folder to your `PATH` environment variable to run the containers anywhere, e.g. by adding the following to `~/.bashrc`:
 
 ```bash
 export PATH="${HOME}/path/to/ros_docker/bin:${PATH}"
+```
+
+- When building packages you can use `rosdep` to find dependencies:
+
+```bash
+# Run from the workspace directory
+rosdep check -i --from-paths src/
 ```
