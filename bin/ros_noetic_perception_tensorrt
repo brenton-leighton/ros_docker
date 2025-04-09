@@ -2,6 +2,7 @@
 
 SCRIPT_DIR=$(dirname $(realpath "$0"))
 
+export ROS_VERSION=1
 export COMPOSE_PROJECT_NAME=ros-noetic-perception-tensorrrt
 export COMPOSE_FILE_PATH=${SCRIPT_DIR}/../noetic/${COMPOSE_PROJECT_NAME}/compose.yaml
 

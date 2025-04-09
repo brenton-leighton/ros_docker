@@ -33,7 +33,11 @@ if [ -z "${HOST_HOME_PATH}" ]; then
 fi
 
 # Ensure the home directory exists on the host
-mkdir -p ${HOST_HOME_PATH}/ros2_ws
+if [ "${ROS_VERSION}" = 1 ]; then
+  mkdir -p ${HOST_HOME_PATH}/catkin_ws
+elif [ "${ROS_VERSION}" = 2 ]; then
+  mkdir -p ${HOST_HOME_PATH}/ros2_ws
+fi
 
 export USER_ID=$(id -u)
 export COMPOSE_BAKE=true
