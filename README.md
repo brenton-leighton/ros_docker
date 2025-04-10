@@ -11,9 +11,13 @@ The containers:
 
 There are also containers for running GUI applications, NVIDIA TensorRT, or Avahi mDNS
 
-## Basic usage
+## Prerequisites
 
 - Ensure a recent version of [Docker Engine](https://docs.docker.com/engine/install/) (or Docker Desktop) is installed and can be [run by you](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
+- If needed, install [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+
+## Basic usage
+
 - Run a script in the bin folder to start a shell in a container, e.g.
 ```bash
 ./ros_humble_base
