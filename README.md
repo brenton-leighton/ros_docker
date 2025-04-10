@@ -52,6 +52,14 @@ The compose files container a number of environment variables that will be set i
 
 ## Making changes
 
+### Scripts
+
+Edit the scripts (located in `bin`) to:
+- Change the project name or path
+- Change the path to the home directory on the host
+- Set environment variables that are evaluated at run time
+- Run commands before running the container (like to ensure directories exist on the host)
+
 ### `Dockerfile`
 
 Edit a container's [`Dockerfile`](https://docs.docker.com/reference/dockerfile/) to change how the image is built, e.g. to install additional packages

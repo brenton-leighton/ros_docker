@@ -2,9 +2,25 @@
 
 SCRIPT_DIR=$(dirname $(realpath "$0"))
 
-export ROS_VERSION=1
 export COMPOSE_PROJECT_NAME=ros-noetic-robot-avahi
-export COMPOSE_FILE_PATH=${SCRIPT_DIR}/../noetic/${COMPOSE_PROJECT_NAME}/compose.yaml
+PROJECT_PATH=${SCRIPT_DIR}/../noetic/${COMPOSE_PROJECT_NAME}/
 
-# Call _ros_docker_compose_run
-${SCRIPT_DIR}/_ros_docker_compose_run ${@}
+# Get the -b option to build
+while getopts b NAME
+do
+   case $NAME in
+   b) BUILD="--build";;
+   esac
+done
+shift $(($OPTIND - 1))
+
+# Home directory on the host
+export HOST_HOME_PATH=${PROJECT_PATH}/home
+mkdir -p ${HOST_HOME_PATH}/catkin_ws
+
+# Other variables
+export USER_ID=$(id -u)
+export COMPOSE_BAKE=true
+
+# docker compose run
+docker compose --file ${PROJECT_PATH}/compose.yaml run ${BUILD} --rm --user ${USER} default ${@}
