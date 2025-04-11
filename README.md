@@ -1,32 +1,41 @@
 # ros_docker
 
-Files for ROS development in Docker.
+Example containers for ROS development in Docker.
 Similar to [rocker](https://github.com/osrf/rocker), but simpler and does some additional things.
 
-The containers:
-- Run as the current user (the images are therefore not portable between users or computers)
+All the containers:
+
+- Run as the current user
 - Mount a host folder for the home directory to allow for persistent bash history, configuration files, etc.
 - Source ROS setup scripts from common locations (and for bash too)
 - Set up colcon command completion (for ROS 2)
 
-There are also containers for running GUI applications, NVIDIA TensorRT, or Avahi mDNS
+More specifically:
+- The `ros-*-base` containers are based on the `ros:*-ros-base` images
+- The `ros-noetic-robot` container is based on the `ros:noetic-robot` image
+- The `ros-*-base-avahi` and `ros-noetic-robot-avahi` containers install packages and mount a directory and file to enable using Avahi mDNS/DNS-SD in the container (for looking up .local addresses)
+- The `ros-*-perception` containers are based on `ros:*-perception` images
+- The `ros-*-perception-tensorrt` containers install NVIDIA CUDA, TensorRT, and other dependencies, and run using NVIDIA Container Toolkit
+- The `ros-*-desktop-full` containers are based on `osrf/ros:*-desktop-full` images and mount a directory and file to enable running graphical applications in the container
+- The `ros-*-desktop-full-nvdia` containers add a file (`10_nvidia.json`) to enable NVIDIA GPU acceleration for graphical applications
 
 ## Prerequisites
 
 - Ensure a recent version of [Docker Engine](https://docs.docker.com/engine/install/) (or Docker Desktop) is installed and can be [run by you](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
-- If needed, install [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+- For CUDA/TensorRT, install [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
 
 ## Basic usage
 
-- Run a script in the bin folder to start a shell in a container, e.g.
+- Run a script in the bin folder to start a shell in the container:
 ```bash
 ./ros_humble_base
 ```
-- The scripts can also be used to run a command directly, e.g.
+- The scripts can also be used to run a command directly:
 ```bash
 ./ros_humble_base ros2 topic list
 ```
-- The container image is built only on the first run, to build it again (i.e. if the Dockerfile has changed) use the `-b` option, e.g.
+- The container image is built only on the first run.
+To build it again (e.g. if the Dockerfile has changed) use the `-b` option:
 ```bash
 ./ros_humble_base -b
 ```
@@ -73,13 +82,13 @@ Edit a container's [`compose.yaml`](https://docs.docker.com/reference/compose-fi
 
 ## Tips
 
-- Add the bin folder to your `PATH` environment variable to run the containers anywhere, e.g. by adding the following to `~/.bashrc`:
+- Add the bin folder to your `PATH` environment variable to run the containers anywhere, e.g. by adding the following to `~/.bashrc` (replacing `/path/to/ros_docker` with the correct path):
 
 ```bash
-export PATH="${HOME}/path/to/ros_docker/bin:${PATH}"
+export PATH="/path/to/ros_docker/bin:${PATH}"
 ```
 
-- When building packages you can use `rosdep` to find dependencies:
+- When building packages in a container you can use `rosdep` to find dependencies:
 
 ```bash
 # Run from the workspace directory
