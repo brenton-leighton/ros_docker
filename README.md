@@ -59,6 +59,9 @@ The compose files container a number of environment variables that will be set i
   - `ROS_MASTER_URI`
   - `ROS_HOSTNAME`
   - `ROS_IP`
+- Both:
+  - `TERM`
+  - `COLORTERM`
 
 ## Making changes
 
