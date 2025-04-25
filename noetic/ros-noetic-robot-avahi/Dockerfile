@@ -19,4 +19,5 @@ WORKDIR /workspace
 CMD ["bash"]
 
 INCLUDE+ ros.Dockerfile
+INCLUDE+ prompt.Dockerfile
 INCLUDE+ user.Dockerfile

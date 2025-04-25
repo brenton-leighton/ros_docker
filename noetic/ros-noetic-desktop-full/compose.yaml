@@ -4,6 +4,7 @@ services:
       context: ../../
       dockerfile: ./noetic/${COMPOSE_PROJECT_NAME}/Dockerfile
       args:
+        COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
         USER_ID: ${USER_ID}
         USER: ${USER}
     network_mode: host
