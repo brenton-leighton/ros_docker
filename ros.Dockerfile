@@ -11,4 +11,4 @@ COPY setup.bash /
 RUN bash -c "echo -e \\\nsource /setup.bash >> /etc/bash.bashrc"
 
 # colcon command completion for ROS 2
-RUN if [ ${ROS_VERSION} -eq 2]; then bash -c "echo -e source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash >> /etc/bash.bashrc"; fi
+RUN if [ "${ROS_DISTRO}" != "noetic" ]; then bash -c "echo -e source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash >> /etc/bash.bashrc"; fi
