@@ -15,6 +15,8 @@ services:
 
     # Environment variables are copied from host if they are set
     environment:
+      - TERM
+      - COLORTERM
       - ROS_MASTER_URI
       - ROS_HOSTNAME
       - ROS_IP

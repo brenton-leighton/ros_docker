@@ -13,6 +13,8 @@ services:
 
     # Environment variables are copied from host if they are set
     environment:
+      - TERM
+      - COLORTERM
       - ROS_DOMAIN_ID
       - ROS_AUTOMATIC_DISCOVERY_RANGE
       - ROS_STATIC_PEERS
