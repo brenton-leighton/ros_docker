@@ -13,19 +13,9 @@ services:
     tty: true
 
     # Environment variables are copied from host if they are set
-    environment:
-      - TERM
-      - COLORTERM
-      - DISPLAY
-      - XDG_RUNTIME_DIR
-      - ROS_DOMAIN_ID
-      - ROS_AUTOMATIC_DISCOVERY_RANGE
-      - ROS_STATIC_PEERS
-      - RMW_IMPLEMENTATION
-      - RCUTILS_CONSOLE_OUTPUT_FORMAT
-      - RCUTILS_COLORIZED_OUTPUT
-      - RCUTILS_LOGGING_USE_STDOUT
-      - RCUTILS_LOGGING_BUFFERED_STREAM
+    env_file:
+      - "../../term.env"
+      - "../../ros2.env"
 
     volumes:
       - type: bind

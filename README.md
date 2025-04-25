@@ -43,9 +43,9 @@ To build it again (e.g. if the Dockerfile has changed) use the `-b` option:
 
 ## Environment variables
 
-The compose files container a number of environment variables that will be set if they are set on the host:
+Environment variables are declared in [env files](https://docs.docker.com/reference/compose-file/services/#env_file), which will be set in the container if they are set on the host:
 
-- ROS 2:
+- `ros2.env`:
   - `ROS_DOMAIN_ID`
   - `ROS_AUTOMATIC_DISCOVERY_RANGE` (jazzy and later)
   - `ROS_LOCALHOST_ONLY` (humble and earlier)
@@ -55,13 +55,20 @@ The compose files container a number of environment variables that will be set i
   - `RCUTILS_COLORIZED_OUTPUT`
   - `RCUTILS_LOGGING_USE_STDOUT`
   - `RCUTILS_LOGGING_BUFFERED_STREAM`
-- ROS 1:
+- `ros1.env`:
   - `ROS_MASTER_URI`
   - `ROS_HOSTNAME`
   - `ROS_IP`
-- Both:
+- `term.env`:
   - `TERM`
   - `COLORTERM`
+
+Environment variables can be set statically in the [compose file](https://docs.docker.com/reference/compose-file/services/#environment) or in the env file.
+For example if your terminal isn't supported in the container, the `TERM` variable can be set in the env file:
+
+```
+TERM=xterm-256color
+```
 
 ## Making changes
 

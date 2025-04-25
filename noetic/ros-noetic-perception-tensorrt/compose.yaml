@@ -15,12 +15,9 @@ services:
     gpus: all
 
     # Environment variables are copied from host if they are set
-    environment:
-      - TERM
-      - COLORTERM
-      - ROS_MASTER_URI
-      - ROS_HOSTNAME
-      - ROS_IP
+    env_file:
+      - "../../term.env"
+      - "../../ros1.env
 
     volumes:
       - type: bind
