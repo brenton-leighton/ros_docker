@@ -37,6 +37,6 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
 WORKDIR /workspace
 CMD ["bash"]
 
-INCLUDE+ ros.Dockerfile
-INCLUDE+ prompt.Dockerfile
-INCLUDE+ user.Dockerfile
+INCLUDE+ common/ros.Dockerfile
+INCLUDE+ common/prompt.Dockerfile
+INCLUDE+ common/user.Dockerfile

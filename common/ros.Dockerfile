@@ -2,12 +2,12 @@
 
 # Replace entrypoint script
 RUN rm /ros_entrypoint.sh
-COPY setup.sh /
-COPY entrypoint.sh /
+COPY common/setup.sh /
+COPY common/entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
 
 # Bash setup for command completion
-COPY setup.bash /
+COPY common/setup.bash /
 RUN bash -c "echo -e \\\nsource /setup.bash >> /etc/bash.bashrc"
 
 # colcon command completion for ROS 2
