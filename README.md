@@ -60,8 +60,8 @@ Environment variables are declared in [env files](https://docs.docker.com/refere
   - `TERM`
   - `COLORTERM`
 
-Environment variables can be set statically in the [compose file](https://docs.docker.com/reference/compose-file/services/#environment) or in the env file.
-For example if your terminal isn't supported in the container, the `TERM` variable can be set in the env file:
+Environment variables can be set statically in the env files or in a project's [compose file](https://docs.docker.com/reference/compose-file/services/#environment).
+For example if your terminal isn't supported in the container, the `TERM` variable can be set in `term.env`:
 
 ```
 TERM=xterm-256color
@@ -69,25 +69,31 @@ TERM=xterm-256color
 
 ## Making changes
 
+Scripts to run the containers are located in the `bin` folder.
+The `Dockerfile` and `compose.yaml` files that define the containers are located in project folders, which are organised by ROS distribution.
+There are additional files for building the containers located in the `common` folder.
+
 ### Scripts
 
-Edit the scripts (located in `bin`) to:
+Edit the scripts to:
 - Change the project name or path
-- Change the path to the home directory on the host
+- Change the path to the home directory on the host (by default they are created in the project folders)
 - Set environment variables that are evaluated at run time
 - Run commands before running the container (like to ensure directories exist on the host)
 
 ### `Dockerfile`
 
 Edit a container's [`Dockerfile`](https://docs.docker.com/reference/dockerfile/) to change how the image is built, e.g. to install additional packages.
+
 [Dockerfile+](https://github.com/edrevo/dockerfile-plus) is used to add the `INCLUDE+` instruction that allows for importing a Dockerfile into another Dockerfile.
 
 ### `compose.yaml`
 
 Edit a container's [`compose.yaml`](https://docs.docker.com/reference/compose-file/) file to change how the container is run, e.g.
 - [Mount volumes](https://docs.docker.com/reference/compose-file/services/#volumes) (like a `ros2_ws`/`catkin_ws` folder)
-- [Add devices](https://docs.docker.com/reference/compose-file/services/#devices)
 - [Set environment variables](https://docs.docker.com/reference/compose-file/services/#environment)
+- [Add devices](https://docs.docker.com/reference/compose-file/services/#devices)
+- [Enable privileged](https://docs.docker.com/reference/compose-file/services/#privileged) (although bear in mind that [this is not recommended](https://docs.docker.com/reference/cli/docker/container/run/#privileged) and will break devices using symbolic links)
 
 ## Tips
 
