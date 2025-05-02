@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
     vim-tiny \
     && rm -rf /var/lib/apt/lists/*
 
-INCLUDE+ nvidia.Dockerfile
+INCLUDE+ common/nvidia.Dockerfile
 
 WORKDIR /workspace
 CMD ["bash"]
