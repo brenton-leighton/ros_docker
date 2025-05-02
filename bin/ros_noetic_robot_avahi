@@ -23,4 +23,4 @@ export USER_ID=$(id -u)
 export COMPOSE_BAKE=true
 
 # docker compose run
-docker compose --file ${PROJECT_PATH}/compose.yaml run ${BUILD} --rm --user ${USER} default ${@}
+docker compose --file ${PROJECT_PATH}/compose.yaml run ${BUILD} --rm default ${@}

@@ -28,4 +28,4 @@ touch ${HOME}/.Xauthority
 export XDG_RUNTIME_DIR="/tmp/$(id -u)"
 
 # docker compose run
-docker compose --file ${PROJECT_PATH}/compose.yaml run ${BUILD} --rm --user ${USER} default ${@}
+docker compose --file ${PROJECT_PATH}/compose.yaml run ${BUILD} --rm default ${@}

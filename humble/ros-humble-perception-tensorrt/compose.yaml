@@ -9,6 +9,7 @@ services:
         USER: ${USER}
     network_mode: host
     ipc: host
+    user: ${USER}
     stdin_open: true
     tty: true
     runtime: nvidia
