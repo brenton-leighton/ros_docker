@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
 
-SCRIPT_DIR=$(dirname $(realpath "$0"))
+SCRIPT_PATH=$(realpath "${0}")
+SCRIPT_DIR=$(dirname "${SCRIPT_PATH}")
 
-export COMPOSE_PROJECT_NAME=ros-jazzy-perception-tensorrt
-PROJECT_PATH=${SCRIPT_DIR}/../jazzy/${COMPOSE_PROJECT_NAME}/
+export COMPOSE_PROJECT_NAME="ros-jazzy-perception-tensorrt"
+PROJECT_DIR="${SCRIPT_DIR}/../jazzy/${COMPOSE_PROJECT_NAME}"
 
 # Parse options to set $BUILD
 source "${SCRIPT_DIR}/_get_build_option"
 
 # Home directory on the host
-export HOST_HOME_PATH=${PROJECT_PATH}/home
-mkdir -p ${HOST_HOME_PATH}/ros2_ws
+export HOST_HOME_PATH="${PROJECT_DIR}/home"
+mkdir -p "${HOST_HOME_PATH}/ros2_ws"
 
 # Other variables
 export USER_ID=$(id -u)
 export COMPOSE_BAKE=true
 
 # docker compose run
-docker compose --file ${PROJECT_PATH}/compose.yaml run ${BUILD} --rm default ${@}
+docker compose --file "${PROJECT_DIR}/compose.yaml" run ${BUILD} --rm default ${@}
