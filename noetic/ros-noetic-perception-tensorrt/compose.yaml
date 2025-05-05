@@ -18,7 +18,7 @@ services:
     # Environment variables are copied from host if they are set
     env_file:
       - "../../term.env"
-      - "../../ros1.env
+      - "../../ros1.env"
 
     volumes:
       - type: bind
