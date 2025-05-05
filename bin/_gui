@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# Things for GUI
+
+# Ensure /tmp/.X11-unix exists
+if [ ! -d "/tmp/.X11-unix" ]; then
+  echo "Error: /tmp/.X11-unix does not exist or is not a directory"
+  exit 1
+fi
+
+# Check that XAUTHORITY is set
+if [ -z "${XAUTHORITY}" ]; then
+  echo "Error: \$XAUTHORITY variable is not set"
+  exit 1
+fi
+
+# Check that XAUTHORITY file exists
+if [ ! -f "${XAUTHORITY}" ]; then
+  echo "Error: \$XAUTHORITY file (${XAUTHORITY}) does not exist or is not a regular file"
+  exit 1
+fi
+
+# Check that XDG_RUNTIME_DIR is set
+if [ -z "${XDG_RUNTIME_DIR}" ]; then
+  echo "Error: \$XDG_RUNTIME_DIR variable is not set"
+  exit 1
+fi
+
+# Check that XDG_RUNTIME_DIR directory exists
+if [ ! -d "${XDG_RUNTIME_DIR}" ]; then
+  echo "Error: \$XDG_RUNTIME_DIR directory (${XDG_RUNTIME_DIR}) does not exist or is not a directory"
+  exit 1
+fi
+
+exit 0

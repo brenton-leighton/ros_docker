@@ -17,9 +17,10 @@ export USER_ID=$(id -u)
 export COMPOSE_BAKE=true
 
 # Additional things for GUI
-mkdir -p /tmp/.X11-unix
-touch ${HOME}/.Xauthority
-export XDG_RUNTIME_DIR="/tmp/$(id -u)"
+${SCRIPT_DIR}/_gui
+if [ ${?} -ne 0 ]; then
+  exit
+fi
 
 # docker compose run
 docker compose --file ${PROJECT_PATH}/compose.yaml run ${BUILD} --rm default ${@}
