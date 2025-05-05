@@ -19,6 +19,8 @@ services:
     env_file:
       - "../../term.env"
       - "../../ros2.env"
+    environment:
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
 
     volumes:
       - type: bind

@@ -26,6 +26,7 @@ services:
       - XAUTHORITY
       - XDG_RUNTIME_DIR
       - QT_X11_NO_MITSHM=1
+      - NVIDIA_DRIVER_CAPABILITIES=graphics,video,display
     devices:
       - /dev/dri
     security_opt:
