@@ -5,14 +5,8 @@ SCRIPT_DIR=$(dirname $(realpath "$0"))
 export COMPOSE_PROJECT_NAME=ros-jazzy-base
 PROJECT_PATH=${SCRIPT_DIR}/../jazzy/${COMPOSE_PROJECT_NAME}/
 
-# Get the -b option to build
-while getopts b NAME
-do
-   case $NAME in
-   b) BUILD="--build";;
-   esac
-done
-shift $(($OPTIND - 1))
+# Parse options to set $BUILD
+source "${SCRIPT_DIR}/_get_build_option"
 
 # Home directory on the host
 export HOST_HOME_PATH=${PROJECT_PATH}/home

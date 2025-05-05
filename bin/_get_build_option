@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Parse options and export $BUILD as "--build" if "-b" is present
+
+export BUILD=""
+
+# -b option to build
+while getopts b NAME
+do
+   case ${NAME} in
+   b) export BUILD="--build";;
+   esac
+done
+shift $((${OPTIND} - 1))
