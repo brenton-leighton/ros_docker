@@ -22,7 +22,7 @@ services:
 
     volumes:
       - type: bind
-        source: "${HOST_HOME_PATH}"
+        source: "${HOST_HOME_DIR}"
         target: "${HOME}"
 #      - type: bind
 #        source: "/path/to/host/catkin_ws"

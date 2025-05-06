@@ -9,8 +9,8 @@ PROJECT_DIR="${SCRIPT_DIR}/../noetic/ros-noetic-desktop-full"
 source "${SCRIPT_DIR}/_get_build_opt"
 
 # Home directory on the host
-export HOST_HOME_PATH="${PROJECT_DIR}/home"
-mkdir -p "${HOST_HOME_PATH}/catkin_ws/src"
+export HOST_HOME_DIR="${PROJECT_DIR}/home"
+mkdir -p "${HOST_HOME_DIR}/catkin_ws/src"
 
 # Other variables
 export USER_ID=$(id -u)
