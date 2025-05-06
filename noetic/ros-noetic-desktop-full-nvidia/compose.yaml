@@ -1,8 +1,10 @@
+name: ros-noetic-desktop-full-nvidia
+
 services:
   default:
     build:
-      context: ../../
-      dockerfile: ./noetic/${COMPOSE_PROJECT_NAME}/Dockerfile
+      context: "../../"
+      dockerfile: "./noetic/${COMPOSE_PROJECT_NAME}/Dockerfile"
       args:
         COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
         USER_ID: ${USER_ID}
@@ -28,17 +30,17 @@ services:
       - QT_X11_NO_MITSHM=1
       - NVIDIA_DRIVER_CAPABILITIES=graphics,video,display
     devices:
-      - /dev/dri
+      - "/dev/dri"
     security_opt:
       - seccomp:unconfined
 
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - ${XAUTHORITY}:${XAUTHORITY}
-      - ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}
+      - "/tmp/.X11-unix:/tmp/.X11-unix"
+      - "${XAUTHORITY}:${XAUTHORITY}"
+      - "${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}"
       - type: bind
-        source: ${HOST_HOME_PATH}
-        target: ${HOME}
+        source: "${HOST_HOME_PATH}"
+        target: "${HOME}"
 #      - type: bind
-#        source: /path/to/host/ros2_ws
-#        target: ${HOME}/ros2_ws
+#        source: "/path/to/host/ros2_ws"
+#        target: "${HOME}/ros2_ws"

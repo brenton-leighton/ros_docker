@@ -1,8 +1,10 @@
+name: ros-jazzy-perception-tensorrt
+
 services:
   default:
     build:
-      context: ../../
-      dockerfile: ./jazzy/${COMPOSE_PROJECT_NAME}/Dockerfile
+      context: "../../"
+      dockerfile: "./jazzy/${COMPOSE_PROJECT_NAME}/Dockerfile"
       args:
         COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
         USER_ID: ${USER_ID}
@@ -24,8 +26,8 @@ services:
 
     volumes:
       - type: bind
-        source: ${HOST_HOME_PATH}
-        target: ${HOME}
+        source: "${HOST_HOME_PATH}"
+        target: "${HOME}"
 #      - type: bind
-#        source: /path/to/host/ros2_ws
-#        target: ${HOME}/ros2_ws
+#        source: "/path/to/host/ros2_ws"
+#        target: "${HOME}/ros2_ws"

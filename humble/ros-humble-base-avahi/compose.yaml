@@ -1,8 +1,10 @@
+name: ros-humble-base-avahi
+
 services:
   default:
     build:
-      context: ../../
-      dockerfile: ./humble/${COMPOSE_PROJECT_NAME}/Dockerfile
+      context: "../../"
+      dockerfile: "./humble/${COMPOSE_PROJECT_NAME}/Dockerfile"
       args:
         COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
         USER_ID: ${USER_ID}
@@ -19,11 +21,11 @@ services:
       - "../../ros2.env"
 
     volumes:
+      - "/var/run/dbus:/var/run/dbus"
+      - "/var/run/avahi-daemon/socket:/var/run/avahi-daemon/socket"
       - type: bind
-        source: ${HOST_HOME_PATH}
-        target: ${HOME}
+        source: "${HOST_HOME_PATH}"
+        target: "${HOME}"
 #      - type: bind
-#        source: /path/to/host/ros2_ws
-#        target: ${HOME}/ros2_ws
-      - /var/run/dbus:/var/run/dbus
-      - /var/run/avahi-daemon/socket:/var/run/avahi-daemon/socket
+#        source: "/path/to/host/ros2_ws"
+#        target: "${HOME}/ros2_ws"
