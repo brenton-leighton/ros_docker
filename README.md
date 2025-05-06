@@ -1,21 +1,24 @@
 # ros_docker
 
-Containers for working with ROS in Docker.
+Example containers for working with ROS in Docker.
+Some functionality was inspired by [rocker](https://github.com/osrf/rocker), but other things are only possible by defining the containers.
+
+The scripts used to start the containers are fairly trivial and the containers can be run directly from the compose files by replacing some variables (e.g. to run the containers from an IDE).
 
 All the containers:
 
 - Run as the current user
 - Set environment variables from the host
-- Mount a host folder for the home directory to allow for persistent bash history, configuration files, etc.
+- Mount a host directory as the home directory in the container, to allow for persistent bash history, configuration files, etc.
 - Source ROS setup scripts from common locations (and for bash too)
 - Set up colcon command completion (for ROS 2)
 
 Additionally:
 
-- The `*-avahi` containers install packages and mount a directory and file to enable using Avahi mDNS/DNS-SD in the container (for looking up .local addresses)
+- The `*-avahi` containers allow for using Avahi mDNS/DNS-SD in the container (for looking up .local addresses)
 - The `*-perception-tensorrt` containers install NVIDIA CUDA, TensorRT, and other dependencies, and run using NVIDIA Container Toolkit
-- The `*-desktop-full` containers mount a directory and file to enable running graphical applications in the container
-- The `*-desktop-full-nvdia` containers also add a file (`10_nvidia.json`) to enable NVIDIA GPU acceleration for graphical applications
+- The `*-desktop-full` containers allow for running graphical applications in the container
+- The `*-desktop-full-nvdia` containers allow for running graphical applications with NVIDIA GPU acceleration in the container
 
 ## Prerequisites
 
@@ -24,7 +27,7 @@ Additionally:
 
 ## Basic usage
 
-- Run a script in the bin folder to start a shell in the container:
+- Run a script in the bin directory to start a shell in the container:
 ```bash
 ./ros_humble_base
 ```
@@ -69,15 +72,15 @@ TERM=xterm-256color
 
 ## Making changes
 
-Scripts to run the containers are located in the `bin` folder.
-The `Dockerfile` and `compose.yaml` files that define the containers are located in project folders, which are organised by ROS distribution.
-There are additional files for building the containers located in the `common` folder.
+Scripts to run the containers are located in the `bin` directory.
+The `Dockerfile` and `compose.yaml` files that define the containers are located in project directories, which are organised by ROS distribution.
+There are additional files for building the containers located in the `common` directory.
 
 ### Scripts
 
 Edit the scripts to:
-- Change the project name or path
-- Change the path to the home directory on the host (by default they are created in the project folders)
+- Change the project directory
+- Change the path to the home directory on the host (by default they are created in the project directories)
 - Set environment variables that are evaluated at run time
 - Run commands before running the container (like to ensure directories exist on the host)
 
@@ -90,14 +93,14 @@ Edit a container's [`Dockerfile`](https://docs.docker.com/reference/dockerfile/)
 ### `compose.yaml`
 
 Edit a container's [`compose.yaml`](https://docs.docker.com/reference/compose-file/) file to change how the container is run, e.g.
-- [Mount volumes](https://docs.docker.com/reference/compose-file/services/#volumes) (like a `ros2_ws`/`catkin_ws` folder)
+- [Mount volumes](https://docs.docker.com/reference/compose-file/services/#volumes) (like a `ros2_ws`/`catkin_ws` directory)
 - [Set environment variables](https://docs.docker.com/reference/compose-file/services/#environment)
 - [Add devices](https://docs.docker.com/reference/compose-file/services/#devices)
 - [Enable privileged](https://docs.docker.com/reference/compose-file/services/#privileged) (although bear in mind that [this is not recommended](https://docs.docker.com/reference/cli/docker/container/run/#privileged) and will break devices using symbolic links)
 
 ## Tips
 
-- Add the bin folder to your `PATH` environment variable to run the containers anywhere, e.g. by adding the following to `~/.bashrc` (replacing `/path/to/ros_docker` with the correct path):
+- Add the bin directory to your `PATH` environment variable to run the containers anywhere, e.g. by adding the following to `~/.bashrc` (replacing `/path/to/ros_docker` with the correct path):
 
 ```bash
 export PATH="/path/to/ros_docker/bin:${PATH}"
