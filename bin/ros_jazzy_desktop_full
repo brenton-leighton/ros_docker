@@ -7,7 +7,7 @@ export COMPOSE_PROJECT_NAME="ros-jazzy-desktop-full"
 PROJECT_DIR="${SCRIPT_DIR}/../jazzy/${COMPOSE_PROJECT_NAME}/"
 
 # Parse options to set $BUILD
-source "${SCRIPT_DIR}/_get_build_option"
+source "${SCRIPT_DIR}/_get_build_opt"
 
 # Home directory on the host
 export HOST_HOME_PATH="${PROJECT_DIR}/home"
@@ -15,10 +15,9 @@ mkdir -p "${HOST_HOME_PATH}/ros2_ws"
 
 # Other variables
 export USER_ID=$(id -u)
-export COMPOSE_BAKE=true
 
 # Additional things for GUI
-"${SCRIPT_DIR}/_gui"
+"${SCRIPT_DIR}/_check_gui_vars"
 if [ ${?} -ne 0 ]; then
   exit
 fi

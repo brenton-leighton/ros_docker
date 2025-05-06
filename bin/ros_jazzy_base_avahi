@@ -7,7 +7,7 @@ export COMPOSE_PROJECT_NAME="ros-jazzy-base-avahi"
 PROJECT_DIR="${SCRIPT_DIR}/../jazzy/${COMPOSE_PROJECT_NAME}"
 
 # Parse options to set $BUILD
-source "${SCRIPT_DIR}/_get_build_option"
+source "${SCRIPT_DIR}/_get_build_opt"
 
 # Home directory on the host
 export HOST_HOME_PATH="${PROJECT_DIR}/home"
@@ -15,7 +15,6 @@ mkdir -p "${HOST_HOME_PATH}/ros2_ws"
 
 # Other variables
 export USER_ID=$(id -u)
-export COMPOSE_BAKE=true
 
 # docker compose run
 docker compose --file "${PROJECT_DIR}/compose.yaml" run ${BUILD} --rm default ${@}
