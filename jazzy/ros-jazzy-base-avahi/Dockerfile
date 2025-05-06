@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN mkdir -p /workspace
 
-INCLUDE+ avahi.Dockerfile
+INCLUDE+ common/avahi.Dockerfile
 
 # Install packages
 RUN apt-get update && apt-get install -q -y --no-install-recommends \
