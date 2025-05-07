@@ -1,9 +1,9 @@
 # ros_docker
 
 Example containers for working with ROS in Docker.
-Some functionality was inspired by [rocker](https://github.com/osrf/rocker), but other things are only possible by defining the containers.
+Some functionality is identical to [rocker](https://github.com/osrf/rocker), but other things are only possible by defining the containers.
 
-The scripts used to start the containers are fairly trivial and the containers can be run directly from the compose files by replacing some variables (e.g. to run the containers from an IDE).
+The scripts used to start the containers are fairly trivial, and the containers can be [run directly from the compose files by replacing some variables](#running-the-containers-directly) (e.g. to run the containers from an IDE).
 
 All the containers:
 
@@ -23,7 +23,7 @@ Additionally:
 ## Prerequisites
 
 - Ensure a recent version of [Docker Engine](https://docs.docker.com/engine/install/) (or Docker Desktop) is installed and can be [run by you](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
-- For CUDA/TensorRT, install [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+- For CUDA/TensorRT or NVIDIA GPU acceleration of graphical applications, install [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
 
 ## Basic usage
 
@@ -73,7 +73,7 @@ TERM=xterm-256color
 ## Making changes
 
 Scripts to run the containers are located in the `bin` directory.
-The `Dockerfile` and `compose.yaml` files that define the containers are located in project directories, which are organised by ROS distribution.
+The `compose.yaml` and `Dockerfile` files that define the containers are located in project directories, which are organised by ROS distribution.
 There are additional files for building the containers located in the `common` directory.
 
 ### Scripts
@@ -84,12 +84,6 @@ Edit the scripts to:
 - Set environment variables that are evaluated at run time
 - Run commands before running the container (like to ensure directories exist on the host)
 
-### `Dockerfile`
-
-Edit a container's [`Dockerfile`](https://docs.docker.com/reference/dockerfile/) to change how the image is built, e.g. to install additional packages.
-
-[Dockerfile+](https://github.com/edrevo/dockerfile-plus) is used to add the `INCLUDE+` instruction that allows for importing a Dockerfile into another Dockerfile.
-
 ### `compose.yaml`
 
 Edit a container's [`compose.yaml`](https://docs.docker.com/reference/compose-file/) file to change how the container is run, e.g.
@@ -97,6 +91,58 @@ Edit a container's [`compose.yaml`](https://docs.docker.com/reference/compose-fi
 - [Set environment variables](https://docs.docker.com/reference/compose-file/services/#environment)
 - [Add devices](https://docs.docker.com/reference/compose-file/services/#devices)
 - [Enable privileged](https://docs.docker.com/reference/compose-file/services/#privileged) (although bear in mind that [this is not recommended](https://docs.docker.com/reference/cli/docker/container/run/#privileged) and will break devices using symbolic links)
+
+### `Dockerfile`
+
+Edit a container's [`Dockerfile`](https://docs.docker.com/reference/dockerfile/) to change how the image is built, e.g. to install additional packages.
+
+[Dockerfile+](https://github.com/edrevo/dockerfile-plus) is used to add the `INCLUDE+` instruction that allows for importing a Dockerfile into another Dockerfile.
+
+## Running the containers directly
+
+The scripts used to run the containers are fairly trivial, they set variables that are evaluated at run time and create directories that are mounted into the container.
+The containers can be run directly from the compose file by editing the file and replacing the `${USER_ID}` and `${HOST_HOME_DIR}` variables, e.g.:
+
+```yaml
+name: ros-humble-base
+
+services:
+  default:
+    build:
+      context: "../../"
+      dockerfile: "./humble/${COMPOSE_PROJECT_NAME}/Dockerfile"
+      args:
+        COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+        USER_ID: 1000
+        USER: ${USER}
+
+...
+
+    volumes:
+      - type: bind
+        source: "${HOME}/ros_docker/humble/ros-humble-base/home"
+        target: "${HOME}"
+```
+
+The script for a container should be run at least once before running the container directly, to ensure the mounted directories exist on the host (if not, they will be created by the root user).
+
+The containers can also be run from a [`devcontainer`](https://containers.dev/), e.g.:
+
+```json
+{
+    "name": "ros-humble-base",
+    "dockerComposeFile": "/path/to/ros_docker/humble/ros-humble-base/compose.yaml",
+    "service": "default",
+    "mounts": [
+        {
+            "source": "${localWorkspaceFolder}",
+            "target": "${localEnv:HOME}/ros2_ws/src/${localWorkspaceFolderBasename}",
+            "type": "bind"
+        }
+    ],
+    "workspaceFolder": "${localEnv:HOME}/ros2_ws/src/${localWorkspaceFolderBasename}"
+}
+```
 
 ## Tips
 
