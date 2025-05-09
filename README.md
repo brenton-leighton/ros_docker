@@ -18,7 +18,7 @@ Additionally:
 - The `*-avahi` containers allow for using Avahi mDNS/DNS-SD in the container (for looking up .local addresses)
 - The `*-perception-tensorrt` containers install NVIDIA CUDA, TensorRT, and other dependencies, and run using NVIDIA Container Toolkit
 - The `*-desktop-full` containers allow for running graphical applications in the container
-- The `*-desktop-full-nvdia` containers allow for running graphical applications with NVIDIA GPU acceleration in the container
+- The `*-desktop-full-nvdia` containers allow for running graphical applications in the container with NVIDIA GPU acceleration
 
 ## Prerequisites
 
@@ -27,15 +27,15 @@ Additionally:
 
 ## Basic usage
 
-- Run a script in the bin directory to start a shell in the container:
+- Run a script in the bin directory to start a shell in a container:
 ```bash
 ./ros_humble_base
 ```
-- The scripts can also be used to run a command directly:
+- The scripts can also be used to run a command directly in a container:
 ```bash
 ./ros_humble_base ros2 topic list
 ```
-- The container image is built only on the first run.
+- The container image will only be built on the first run.
 To build it again (e.g. if the Dockerfile has changed) use the `-b` option:
 ```bash
 ./ros_humble_base -b
