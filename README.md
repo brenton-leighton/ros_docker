@@ -63,12 +63,10 @@ Environment variables are declared in [env files](https://docs.docker.com/refere
   - `TERM`
   - `COLORTERM`
 
-Environment variables can be set statically in the env files or in a project's [compose file](https://docs.docker.com/reference/compose-file/services/#environment).
-For example if your terminal isn't supported in the container, the `TERM` variable can be set in `term.env`:
+There are additional variables for specific ROS 2 middleware in `ros2.env` that are not listed here.
 
-```
-TERM=xterm-256color
-```
+Variables can be set statically in the env files or in a project's [compose file](https://docs.docker.com/reference/compose-file/services/#environment).
+Variables in the compose file take precedence over the env files.
 
 ## Making changes
 
@@ -150,6 +148,12 @@ The containers can also be run from a [`devcontainer`](https://containers.dev/),
 
 ```bash
 export PATH="/path/to/ros_docker/bin:${PATH}"
+```
+
+- If your terminal isn't supported in the container, the `TERM` variable can be set in `term.env`:
+
+```
+TERM=xterm-256color
 ```
 
 - When building packages in a container you can use `rosdep` to find dependencies:
