@@ -2,13 +2,13 @@
 
 # Parse options and export $BUILD as "--build" if "-b" is present
 
-export BUILD=""
+export BUILD_ARG=""
 
 # -b option to build
 while getopts b NAME
 do
    case ${NAME} in
-   b) export BUILD="--build";;
+   b) export BUILD_ARG="--build";;
    esac
 done
 shift $((${OPTIND} - 1))

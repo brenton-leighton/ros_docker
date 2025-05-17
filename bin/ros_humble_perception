@@ -5,7 +5,7 @@ SCRIPT_DIR=$(dirname "${SCRIPT_PATH}")
 
 PROJECT_DIR="${SCRIPT_DIR}/../humble/ros-humble-perception"
 
-# Parse options to set $BUILD
+# Parse options to set $BUILD_ARG
 source "${SCRIPT_DIR}/_get_build_opt"
 
 # Ensure the home directory exists on the host
@@ -15,4 +15,4 @@ mkdir -p "${PROJECT_DIR}/home/ros2_ws/src"
 export USER_ID=$(id -u)
 
 # docker compose run
-docker compose --file "${PROJECT_DIR}/compose.yaml" run ${BUILD} --rm default ${@}
+docker compose --file "${PROJECT_DIR}/compose.yaml" run ${BUILD_ARG} --rm default ${@}
