@@ -78,14 +78,13 @@ There are additional files for building the containers located in the `common` d
 
 Edit the scripts to:
 - Change the project directory
-- Change the path to the home directory on the host (by default they are created in the project directories)
 - Set environment variables that are evaluated at run time
 - Run commands before running the container (like to ensure directories exist on the host)
 
 ### `compose.yaml`
 
 Edit a container's [`compose.yaml`](https://docs.docker.com/reference/compose-file/) file to change how the container is run, e.g.
-- [Mount volumes](https://docs.docker.com/reference/compose-file/services/#volumes) (like a `ros2_ws`/`catkin_ws` directory)
+- [Mount volumes](https://docs.docker.com/reference/compose-file/services/#volumes) (like a `ros2_ws`/`catkin_ws` directory) or change the location of the home directory on the host
 - [Set environment variables](https://docs.docker.com/reference/compose-file/services/#environment)
 - [Add devices](https://docs.docker.com/reference/compose-file/services/#devices)
 - [Enable privileged](https://docs.docker.com/reference/compose-file/services/#privileged) (although bear in mind that [this is not recommended](https://docs.docker.com/reference/cli/docker/container/run/#privileged) and will break devices using symbolic links)
@@ -98,11 +97,9 @@ Edit a container's [`Dockerfile`](https://docs.docker.com/reference/dockerfile/)
 
 ## Running the containers directly
 
-The scripts used to run the containers are fairly trivial, they set variables that are evaluated at run time and create directories that are mounted into the container.
-
 The containers can be run directly from the compose file, however:
-- You should run the container from the script at least once to ensure any mounted directories are created (if not, they will be created by the root user)
-- If your ID on the host is not 1000 (if you are the first or only user it should be 1000) you need to either set the `USER_ID` variable or edit the value in the compose files.
+- You should run the container from the script at least once to ensure the home directory exists on the host (if not, it will be created by the root user)
+- If your ID on the host is not 1000 (if you are the first or only user it should be 1000) you need to either set the `USER_ID` variable or edit the value in the compose files
 - The GUI containers (with `desktop` in their names) should probably not be run directly because the scripts do some additional checks of variables and directories
 
 The containers can also be run from a [`devcontainer`](https://containers.dev/), e.g.:

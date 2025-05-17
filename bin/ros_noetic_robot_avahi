@@ -11,7 +11,7 @@ source "${SCRIPT_DIR}/_get_build_opt"
 # Ensure the home directory exists on the host
 mkdir -p "${PROJECT_DIR}/home/catkin_ws/src"
 
-# Other variables
+# Export USER_ID in case it isn't 1000
 export USER_ID=$(id -u)
 
 # docker compose run
