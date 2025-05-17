@@ -8,9 +8,8 @@ PROJECT_DIR="${SCRIPT_DIR}/../noetic/ros-noetic-perception-tensorrt"
 # Parse options to set $BUILD
 source "${SCRIPT_DIR}/_get_build_opt"
 
-# Home directory on the host
-export HOST_HOME_DIR="${PROJECT_DIR}/home"
-mkdir -p "${HOST_HOME_DIR}/catkin_ws/src"
+# Ensure the home directory exists on the host
+mkdir -p "${PROJECT_DIR}/home/catkin_ws/src"
 
 # Other variables
 export USER_ID=$(id -u)

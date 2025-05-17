@@ -99,30 +99,11 @@ Edit a container's [`Dockerfile`](https://docs.docker.com/reference/dockerfile/)
 ## Running the containers directly
 
 The scripts used to run the containers are fairly trivial, they set variables that are evaluated at run time and create directories that are mounted into the container.
-The containers can be run directly from the compose file by editing the file and replacing the `${USER_ID}` and `${HOST_HOME_DIR}` variables, e.g.:
 
-```yaml
-name: ros-humble-base
-
-services:
-  default:
-    build:
-      context: "../../"
-      dockerfile: "./humble/${COMPOSE_PROJECT_NAME}/Dockerfile"
-      args:
-        COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
-        USER_ID: 1000
-        USER: ${USER}
-
-...
-
-    volumes:
-      - type: bind
-        source: "${HOME}/ros_docker/humble/ros-humble-base/home"
-        target: "${HOME}"
-```
-
-The script for a container should be run at least once before running the container directly, to ensure the mounted directories exist on the host (if not, they will be created by the root user).
+The containers can be run directly from the compose file, however:
+- You should run the container from the script at least once to ensure any mounted directories are created (if not, they will be created by the root user)
+- If your ID on the host is not 1000 (if you are the first or only user it should be 1000) you need to either set the `USER_ID` variable or edit the value in the compose files.
+- The GUI containers (with `desktop` in their names) should probably not be run directly because the scripts do some additional checks of variables and directories
 
 The containers can also be run from a [`devcontainer`](https://containers.dev/), e.g.:
 

@@ -7,7 +7,7 @@ services:
       dockerfile: "./humble/${COMPOSE_PROJECT_NAME}/Dockerfile"
       args:
         COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
-        USER_ID: ${USER_ID}
+        USER_ID: ${USER_ID:-1000}
         USER: ${USER}
     network_mode: host
     ipc: host
@@ -26,7 +26,7 @@ services:
 
     volumes:
       - type: bind
-        source: "${HOST_HOME_DIR}"
+        source: "./home"
         target: "${HOME}"
 #      - type: bind
 #        source: "/path/to/host/ros2_ws"
