@@ -7,7 +7,7 @@ All the containers:
 
 - Run as the current user
 - Set environment variables from the host
-- Mount a host directory as the home directory in the container, to allow for persistent bash history, configuration files, etc.
+- Mount a host directory (located in the project directories) as the home directory in the container, to allow for persistent bash history, configuration files, etc.
 - Source ROS setup scripts from common locations (and for bash too)
 - Set up colcon command completion (for ROS 2)
 
@@ -70,9 +70,10 @@ Variables in the compose file take precedence over the env files.
 
 ## Making changes
 
-Scripts to run the containers are located in the `bin` directory.
-The `compose.yaml` and `Dockerfile` files that define the containers are located in project directories, which are organised by ROS distribution.
-There are additional files for building the containers located in the `common` directory.
+- Scripts to run the containers are located in the `bin` directory
+- The `compose.yaml` and `Dockerfile` files that define the containers are located in project directories, which are organised by ROS distribution
+- There are additional files for building the containers located in the `common` directory
+- A new container can be created by copying and renaming an existing script and project directory
 
 ### Scripts
 
@@ -93,7 +94,7 @@ Edit a container's [`compose.yaml`](https://docs.docker.com/reference/compose-fi
 
 Edit a container's [`Dockerfile`](https://docs.docker.com/reference/dockerfile/) to change how the image is built, e.g. to install additional packages.
 
-[Dockerfile+](https://github.com/edrevo/dockerfile-plus) is used to add the `INCLUDE+` instruction that allows for importing a Dockerfile into another Dockerfile.
+[Dockerfile+](https://github.com/edrevo/dockerfile-plus) is used to add the `INCLUDE+` instruction that allows for including a Dockerfile into another Dockerfile. It's used to include the Dockerfiles located in the `common` directory.
 
 ## Running the containers directly
 
