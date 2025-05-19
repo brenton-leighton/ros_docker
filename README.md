@@ -3,8 +3,6 @@
 Example containers for working with ROS in Docker.
 Some functionality is identical to [rocker](https://github.com/osrf/rocker), but other things are only possible by defining the containers.
 
-The scripts used to start the containers are fairly trivial, and the containers can be [run directly from the compose files by replacing some variables](#running-the-containers-directly) (e.g. to run the containers from an IDE).
-
 All the containers:
 
 - Run as the current user
@@ -19,6 +17,8 @@ Additionally:
 - The `*-perception-tensorrt` containers install NVIDIA CUDA, TensorRT, and other dependencies, and run using NVIDIA Container Toolkit
 - The `*-desktop-full` containers allow for running graphical applications in the container
 - The `*-desktop-full-nvdia` containers allow for running graphical applications in the container with NVIDIA GPU acceleration
+
+The scripts used to start the containers are fairly trivial, and the containers can be [run directly from the compose files](#running-the-containers-directly) (e.g. to run the containers from an IDE).
 
 ## Prerequisites
 
@@ -99,7 +99,7 @@ Edit a container's [`Dockerfile`](https://docs.docker.com/reference/dockerfile/)
 
 The containers can be run directly from the compose file, however:
 - You should run the container from the script at least once to ensure the home directory exists on the host (if not, it will be created by the root user)
-- If your ID on the host is not 1000 (if you are the first or only user it should be 1000) you need to either set the `USER_ID` variable or edit the value in the compose files
+- If your user ID on the host is not 1000 (if you are the first or only user it should be 1000) you need to either export the `USER_ID` environment variable with the correct value or edit the value in the compose file
 - The GUI containers (with `desktop` in their names) should probably not be run directly because the scripts do some additional checks of variables and directories
 
 The containers can also be run from a [`devcontainer`](https://containers.dev/), e.g.:
