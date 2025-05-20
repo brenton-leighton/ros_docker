@@ -3,7 +3,7 @@
 SCRIPT_PATH=$(realpath "${0}")
 SCRIPT_DIR=$(dirname "${SCRIPT_PATH}")
 
-PROJECT_DIR="${SCRIPT_DIR}/../humble/ros-humble-base-avahi"
+PROJECT_DIR=$(realpath "${SCRIPT_DIR}/../humble/ros-humble-base-avahi")
 
 # Parse options to set $BUILD_ARG
 source "${SCRIPT_DIR}/_get_build_opt"
@@ -15,4 +15,5 @@ mkdir -p "${PROJECT_DIR}/home/ros2_ws/src"
 export USER_ID=$(id -u)
 
 # docker compose run
+echo docker compose --file "${PROJECT_DIR}/compose.yaml" run ${BUILD_ARG} --rm default ${@}
 docker compose --file "${PROJECT_DIR}/compose.yaml" run ${BUILD_ARG} --rm default ${@}
