@@ -21,5 +21,5 @@ if [ ${?} -ne 0 ]; then
 fi
 
 # docker compose run
-echo docker compose --file "${PROJECT_DIR}/compose.yaml" run ${BUILD_ARG} --rm default ${@}
-docker compose --file "${PROJECT_DIR}/compose.yaml" run ${BUILD_ARG} --rm default ${@}
+echo docker compose -f "${PROJECT_DIR}/compose.yaml" run ${BUILD_ARG} --rm default ${@}
+docker compose -f "${PROJECT_DIR}/compose.yaml" run ${BUILD_ARG} --rm default ${@}

@@ -15,5 +15,5 @@ mkdir -p "${PROJECT_DIR}/home/ros2_ws/src"
 export USER_ID=$(id -u)
 
 # docker compose run
-echo docker compose --file "${PROJECT_DIR}/compose.yaml" run ${BUILD_ARG} --rm default ${@}
-docker compose --file "${PROJECT_DIR}/compose.yaml" run ${BUILD_ARG} --rm default ${@}
+echo docker compose -f "${PROJECT_DIR}/compose.yaml" run ${BUILD_ARG} --rm default ${@}
+docker compose -f "${PROJECT_DIR}/compose.yaml" run ${BUILD_ARG} --rm default ${@}
