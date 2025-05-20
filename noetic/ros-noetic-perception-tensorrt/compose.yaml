@@ -9,6 +9,8 @@ services:
         COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
         USER_ID: ${USER_ID:-1000}
         USER: ${USER}
+        #CUDA_VERSION:
+        #TENSORRT_VERSION:
     network_mode: host
     ipc: host
     user: ${USER}
