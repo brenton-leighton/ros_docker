@@ -147,3 +147,5 @@ TERM=xterm-256color
 # Run from the workspace directory
 rosdep check -i --from-paths src/
 ```
+
+- You can use `sudo apt` or `sudo apt-get` in the container with no password, but keep in mind that any changes only affect the running container and not the image

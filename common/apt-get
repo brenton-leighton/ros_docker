@@ -1,0 +1,3 @@
+# sudoers.d file to allow all users to use sudo apt and sudo apt-get
+ALL ALL = NOPASSWD: /usr/bin/apt-get
+ALL ALL = NOPASSWD: /usr/bin/apt

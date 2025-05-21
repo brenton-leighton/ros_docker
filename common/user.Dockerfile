@@ -3,6 +3,9 @@
 ARG USER_ID
 ARG USER
 
+# Allow all users to use sudo apt-get and sudo apt
+COPY common/apt-get /etc/sudoers.d/
+
 # Jazzy has a user named ubuntu with id 1000
 # Delete it if it conflicts with the user to be added
 RUN if id ${USER_ID} > /dev/null 2>&1; then userdel -r $(id -nu ${USER_ID}); fi
