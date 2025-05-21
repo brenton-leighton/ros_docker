@@ -41,6 +41,12 @@ To build it again (e.g. if the Dockerfile has changed) use the `-b` option:
 ./ros_humble_base -b
 ```
 
+You can also run a command in an existing container with `docker exec` e.g.
+
+```bash
+docker exec -it ros-humble-base-default-run-60827ea8a754 bash
+```
+
 ## Environment variables
 
 Environment variables are declared in [env files](https://docs.docker.com/reference/compose-file/services/#env_file), which will be set in the container if they are set on the host:
