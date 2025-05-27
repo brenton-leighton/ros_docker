@@ -1,13 +1,13 @@
 # ros_docker
 
-Example containers for working with ROS in Docker.
-Some functionality is identical to [rocker](https://github.com/osrf/rocker), but other things are only possible by defining the containers.
+Containers for working with ROS in Docker.
+Some functionality is similar to [rocker](https://github.com/osrf/rocker), but other things are only possible by defining the containers.
 
 All the containers:
 
 - Run as the current user
 - Set environment variables from the host
-- Mount a host directory (located in the project directories) as the home directory in the container, to allow for persistent bash history, configuration files, etc.
+- Mount a host directory (located in the project directory) as the home directory in the container, to allow for persistent bash history, configuration files, etc.
 - Source ROS setup scripts from common locations (and for bash too)
 - Set up colcon command completion (for ROS 2)
 
